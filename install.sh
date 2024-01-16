@@ -81,7 +81,14 @@ remove(){
 
 # 安装sing-box
 install(){
-  apt -y update && apt -y install wget curl socat grep net-tools
+  if [ -x "$(command -v apt)" ]; then
+    apt -y update && apt -y install wget curl socat grep net-tools
+  elif [ -x "$(command -v yum)" ]; then
+    yum -y update && yum -y install wget curl socat grep net-tools
+  else
+    echo "Unsupported package manager."
+    exit 1
+  fi
 
   # 使用正则表达式提取版本号
   VERSION=$(curl -s https://api.github.com/repos/SagerNet/sing-box/releases/latest \
