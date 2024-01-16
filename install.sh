@@ -167,6 +167,7 @@ get_ipv6_info() {
   if [ -z "$ip_address" ]; then
     echo "无法获取到 IPv6 地址信息"
     ipwan6="" # 如果需要，可以设置为特定的占位符
+    get_certificate
     return
   fi
 
