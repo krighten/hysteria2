@@ -284,11 +284,23 @@ cat > "$CONFIG_FILE" << EOF
     ]
 }
 EOF
-# 创建导入链接
-cat > "/etc/sing-box/link.txt" << EOF
+
+  # 定义链接文件路径
+  LINK_FILE="/etc/sing-box/link.txt"
+
+  # 检查是否存在 IPv6 地址
+  if [ -z "$ipwan6" ]; then
+    # 只写入 IPv4 链接
+    cat > "$LINK_FILE" << EOF
+hysteria2://$password@$ipwan4$domain:$port/?${ovokk}sni=$domain$domain_name#Hysteria2-v4
+EOF
+  else
+    # 写入 IPv4 和 IPv6 链接
+    cat > "$LINK_FILE" << EOF
 hysteria2://$password@$ipwan4$domain:$port/?${ovokk}sni=$domain$domain_name#Hysteria2-v4
 hysteria2://$password@$ipwan6$domain:$port/?${ovokk}sni=$domain$domain_name#Hysteria2-v6
 EOF
+  fi
   
   # 执行下一步骤
   write_systemd
