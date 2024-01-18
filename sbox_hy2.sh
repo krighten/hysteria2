@@ -117,6 +117,7 @@ install(){
 
   # 解压文件
   tar -zxvf /root/$FILE_NAME --strip-components=1 -C /usr/bin "sing-box-${VERSION}-linux-amd64/sing-box"
+  rm -f /root/$FILE_NAME
   
   # 执行后续操作
   get_port
